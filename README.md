@@ -1,30 +1,82 @@
-# 📚 Online Social Bookstore – Legacy Code Re-engineering  
-*(Spring Boot 17 · Java 17 · MySQL · Thymeleaf · JUnit 5 · Mockito)*  
+  Online Social Bookstore – Legacy Code Re-engineering
 
-> **Last updated:** 19 June 2025  
-> **Original legacy snapshot:** 10 July 2024  
+A full re-engineering of a 2024 Spring Boot application that enables users to **exchange used books**, interact socially via **offers**, **requests**, **profiles**, and **recommendations**.  
+The project focuses on improving **architecture**, **modularity**, and **testability**, while remaining easy to build and extend.
 
----
-
-## 1  Goal
-This repository contains a **complete re-engineering** of an original 2024 Spring Boot web app that lets readers **exchange used books for free** while interacting through profiles, offers, requests, searches and recommendations.  
-The new code base focuses on **clean architecture, testability and extensibility** while remaining easy for newcomers to build and run.
+ Original codebase: July 2024  
+ Last updated: June 2025
 
 ---
 
-## 2  Key Improvements
-| Area | Legacy Issue | What We Did |
-|------|--------------|-------------|
-| **Controllers** | `UserController` was a “God class” handling *everything*. | Split into focused controllers (`ProfileController`, `OfferController`, `RequestController`, `SearchController`, `RecommendationController`). |
-| **Business Logic** | Mixed with web layer. | Extracted a **service layer** with clear boundaries and interfaces. |
-| **Search & Recommend** | Duplicate code across multiple strategy classes. | Introduced **Template Method** pattern; added a new *“Social Proximity”* search & *“Reading Twin”* recommendation strategy. |
-| **Persistence** | Scattered repository code. | Consolidated under `repository` package; added JPA specs & QueryDSL for type-safe querying. |
-| **Domain Model Docs** | Hard to visualise. | Reverse-engineered ERD & UML; stored in `/docs/diagrams/`. |
-| **Testing** | Sparse, integration-heavy. | 120+ unit & slice tests with JUnit 5, Mockito, Spring Boot Test; 93 % line coverage. |
-| **Missing Features** | US7, US9, US12 not implemented. | All three user stories fully delivered with e-mail / in-app notifications. |
-| **Build & CI** | Manual. | Added **Maven Wrapper**, GitHub Actions CI, Docker compose for MySQL + app. |
+##  Project Goals
+
+- Refactor a monolithic legacy codebase into a clean, modular system
+- Improve test coverage and reliability
+- Simplify contribution and extension for new developers
 
 ---
 
-## 3  Later testing
-Fix the docker Compose
+##  Tech Stack
+
+- **Java 17**, **Spring Boot 3**, **MySQL**
+- **Thymeleaf** (frontend)
+- **JUnit 5**, **Mockito**, **Spring Boot Test**
+- **Maven**, **GitHub Actions**, **Docker Compose**
+
+---
+
+##  Key Improvements
+
+| Area             | Legacy Issues                                 | Improvements Made                                      |
+|------------------|-----------------------------------------------|--------------------------------------------------------|
+| Controllers       | One large UserController ("God class")         | Split into focused controllers by concern              |
+| Business Logic    | Mixed with web layer                          | Separated service layer with clear interfaces          |
+| Search & Recommend| Code duplication                              | Used Template Method pattern; added new strategies     |
+| Persistence       | Scattered and inconsistent                    | Consolidated under `repository/`, added QueryDSL       |
+| Diagrams          | None                                           | Reverse-engineered ERD and UML (`/docs/diagrams/`)     |
+| Testing           | Sparse & brittle integration tests            | 120+ unit/slice tests, 93% coverage with JUnit + Mockito|
+| Missing Features  | US7, US9, US12 were not implemented           | All now completed: with email + in-app notifications   |
+| CI/Build          | Manual setup                                  | Added Maven Wrapper, GitHub Actions, Docker Compose    |
+
+---
+
+##  Setup Instructions
+
+bash
+# 1. Clone the repo
+git clone https://github.com/YOUR_USERNAME/online-social-bookstore.git
+cd online-social-bookstore
+
+# 2. Start MySQL and the app with Docker Compose
+docker compose up
+
+# 3. Open the app in your browser
+http://localhost:8080
+Running Tests
+bash
+Copy
+Edit
+mvn clean test
+ File Structure Highlights
+src/main/java/.../controller/ – Modular controllers for each feature
+
+src/main/java/.../service/ – Clean service layer
+
+src/main/java/.../repository/ – JPA repositories with QueryDSL
+
+src/test/ – Unit and slice tests
+
+docs/diagrams/ – ERD and UML class diagrams
+
+ Testing Coverage
+ 120+ tests
+
+Unit + slice + integration
+
+ 93% line coverage
+
+ Verified with GitHub Actions CI
+
+## License
+This project is for academic and portfolio use.
+Do not redistribute without credit.
